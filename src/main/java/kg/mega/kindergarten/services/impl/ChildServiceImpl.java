@@ -64,4 +64,9 @@ public class ChildServiceImpl implements ChildService {
         childRepo.save(child);
         return true;
     }
+
+    @Override
+    public Child findById(Long id) {
+        return childRepo.getChildByIdAndActive(id, true);
+    }
 }

@@ -15,13 +15,21 @@ public class Payment {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "children_id")
-    private Child children;
+    private Child child;
     private double paymentSum;
     private LocalDateTime paymentDate;
     private LocalDate endPaymentDate;
-    @Enumerated(EnumType.STRING)
     private PaymentType paymentType;
     private int period;
+    private boolean active = true;
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public LocalDate getEndPaymentDate() {
         return endPaymentDate;
@@ -47,12 +55,12 @@ public class Payment {
         this.id = id;
     }
 
-    public Child getChildren() {
-        return children;
+    public Child getChild() {
+        return child;
     }
 
-    public void setChildren(Child children) {
-        this.children = children;
+    public void setChild(Child child) {
+        this.child = child;
     }
 
     public double getPaymentSum() {
