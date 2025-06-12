@@ -15,7 +15,7 @@ import java.util.List;
 public interface TeacherMapper {
     TeacherMapper INSTANCE = Mappers.getMapper(TeacherMapper.class);
 
-    @Mapping(source = "contactDto.contactId", target = "contact.id")
+    @Mapping(source = "contactCreateDto", target = "contact")
     Teacher teacherCreateDtoToTeacher(TeacherCreateDto teacherCreateDto);
 
     @Mapping(source = "id", target = "teacherId")

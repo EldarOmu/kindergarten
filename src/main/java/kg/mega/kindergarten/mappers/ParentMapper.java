@@ -16,7 +16,7 @@ import java.util.List;
 public interface ParentMapper {
     ParentMapper INSTANCE = Mappers.getMapper(ParentMapper.class);
 
-    @Mapping(source = "contactDto.contactId", target = "contact.id")
+    @Mapping(source = "contactCreateDto", target = "contact")
     Parent parentCreateDtoToParent(ParentCreateDto dto);
 
     @Mapping(source = "contact", target = "contactDto")

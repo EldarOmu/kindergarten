@@ -6,6 +6,6 @@ public record ParentCreateDto(
         String firstName,
         String lastName,
         Role role,
-        ContactDto contactDto
+        ContactCreateDto contactCreateDto
 ) {
 }

@@ -12,6 +12,6 @@ public record TeacherCreateDto(
         Position position,
         @JsonFormat(pattern = "dd.MM.yyyy")
         Date dateOfBirth,
-        ContactDto contactDto
+        ContactCreateDto contactCreateDto
 ) {
 }
