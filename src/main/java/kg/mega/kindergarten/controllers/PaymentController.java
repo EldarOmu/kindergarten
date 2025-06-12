@@ -5,10 +5,8 @@ import kg.mega.kindergarten.models.dtos.PaymentDto;
 import kg.mega.kindergarten.models.dtos.PaymentUpdateDto;
 import kg.mega.kindergarten.services.PaymentService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.parameters.P;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +22,10 @@ public class PaymentController {
     @PostMapping("/create")
     public ResponseEntity<?> createPayment(@RequestBody PaymentCreateDto paymentCreateDto) {
         return ResponseEntity.ok(paymentService.createPayment(paymentCreateDto));
+    }
+
+    @GetMapping("/get-payment-by-child-id/{childId}")
+    public ResponseEntity<?> getPaymentByChildId(@PathVariable Long childId) {
+        return ResponseEntity.ok(paymentService.getPaymentByChildId(childId));
     }
 }

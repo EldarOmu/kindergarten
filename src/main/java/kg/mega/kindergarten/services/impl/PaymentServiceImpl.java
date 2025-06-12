@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -29,5 +30,11 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setEndPaymentDate(LocalDate.now().plusMonths(paymentCreateDto.period()));
         paymentRepo.save(payment);
         return PaymentMapper.INSTANCE.paymentToPaymentDto(payment);
+    }
+
+    @Override
+    public List<PaymentDto> getPaymentByChildId(Long childId) {
+        List<Payment> payments = paymentRepo.getAllByChildIdAndActive(childId, true);
+        return PaymentMapper.INSTANCE.paymentsToPaymentDtos(payments);
     }
 }
