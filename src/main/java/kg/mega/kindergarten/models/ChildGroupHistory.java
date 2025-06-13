@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "children_group_histories")
-public class ChildrenGroupHistory {
+@Table(name = "child_group_histories")
+public class ChildGroupHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -52,12 +52,12 @@ public class ChildrenGroupHistory {
         this.endDate = endDate;
     }
 
-    public Child getChildren() {
-        return children;
+    public Child getChild() {
+        return child;
     }
 
-    public void setChildren(Child children) {
-        this.children = children;
+    public void setChild(Child child) {
+        this.child = child;
     }
 
     public double getPrice() {

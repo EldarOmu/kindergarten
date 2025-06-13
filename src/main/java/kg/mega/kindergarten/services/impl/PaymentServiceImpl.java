@@ -29,7 +29,10 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = PaymentMapper.INSTANCE.paymentCreateDtoToPayment(paymentCreateDto, childService);
         payment.setPaymentDate(LocalDateTime.now());
         payment.setEndPaymentDate(LocalDate.now().plusMonths(paymentCreateDto.period()));
-        paymentRepo.save(payment);
+        if (payment.getPaymentSum() - payment.getChild().getGroup().getAgeGroup().getPrice() * payment.getPeriod() >= 0)
+            paymentRepo.save(payment);
+        else
+            throw new RuntimeException("Insufficient funds to pay!");
         return PaymentMapper.INSTANCE.paymentToPaymentDto(payment);
     }
 
