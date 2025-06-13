@@ -15,4 +15,6 @@ public interface PaymentRepo extends JpaRepository<Payment, Long> {
 
     @Query("select u from Payment u where u.paymentDate between ?1 and ?2 and u.child.id = ?3")
     List<Payment> getPaymentsByPeriod(LocalDateTime startDate, LocalDateTime endDate, Long childId);
+
+    Payment getPaymentByIdAndActive(Long id, boolean active);
 }

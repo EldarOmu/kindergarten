@@ -37,4 +37,9 @@ public class PaymentController {
     public ResponseEntity<?> getPaymentsByPeriod(@RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate startDate, @RequestParam @DateTimeFormat(pattern = "dd.MM.yyyy") LocalDate endDate, @PathVariable Long childId) {
         return ResponseEntity.ok(paymentService.getPaymentsByPeriod(startDate, endDate, childId));
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deletePayment(@RequestParam Long paymentId) {
+        return ResponseEntity.ok(paymentService.deletePayment(paymentId));
+    }
 }

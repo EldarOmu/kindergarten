@@ -16,8 +16,8 @@ public class ChildrenGroupHistory {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     @ManyToOne
-    @JoinColumn(name = "children_id")
-    private Child children;
+    @JoinColumn(name = "child_id")
+    private Child child;
     private double price;
 
     public Long getId() {

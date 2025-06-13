@@ -12,4 +12,6 @@ public interface PaymentService {
     List<PaymentDto> getPaymentByChildId(Long childId);
 
     List<PaymentDto> getPaymentsByPeriod(LocalDate startDate, LocalDate endDate, Long childId);
+
+    boolean deletePayment(Long paymentId);
 }

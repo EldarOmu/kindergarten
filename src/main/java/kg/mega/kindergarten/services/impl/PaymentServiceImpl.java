@@ -46,4 +46,12 @@ public class PaymentServiceImpl implements PaymentService {
         List<Payment> payments = paymentRepo.getPaymentsByPeriod(startDateTime, endDateTime, childId);
         return PaymentMapper.INSTANCE.paymentsToPaymentDtos(payments);
     }
+
+    @Override
+    public boolean deletePayment(Long paymentId) {
+        Payment payment = paymentRepo.getPaymentByIdAndActive(paymentId, true);
+        payment.setActive(false);
+        paymentRepo.save(payment);
+        return true;
+    }
 }

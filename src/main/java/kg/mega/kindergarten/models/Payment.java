@@ -14,7 +14,7 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "children_id")
+    @JoinColumn(name = "child_id")
     private Child child;
     private double paymentSum;
     private LocalDateTime paymentDate;
