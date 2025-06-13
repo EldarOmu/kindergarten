@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -35,6 +36,14 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public List<PaymentDto> getPaymentByChildId(Long childId) {
         List<Payment> payments = paymentRepo.getAllByChildIdAndActive(childId, true);
+        return PaymentMapper.INSTANCE.paymentsToPaymentDtos(payments);
+    }
+
+    @Override
+    public List<PaymentDto> getPaymentsByPeriod(LocalDate startDate, LocalDate endDate, Long childId) {
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atTime(LocalTime.MAX);
+        List<Payment> payments = paymentRepo.getPaymentsByPeriod(startDateTime, endDateTime, childId);
         return PaymentMapper.INSTANCE.paymentsToPaymentDtos(payments);
     }
 }
