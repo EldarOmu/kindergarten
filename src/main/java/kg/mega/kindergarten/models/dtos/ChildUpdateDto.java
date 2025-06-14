@@ -6,9 +6,9 @@ import java.util.List;
 public record ChildUpdateDto(
         String firstName,
         String lastName,
-        GroupDto groupDto,
+        Long groupId,
         Date dateOfBirth,
-        List<ParentDto> parentDtos,
+        List<Long> parentIds,
         boolean active
 ) {
 }

@@ -14,6 +14,7 @@ import kg.mega.kindergarten.services.ContactService;
 import kg.mega.kindergarten.services.TeacherService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -77,7 +78,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Teacher findTeacherByIdAndPosition(Long id, Position position) {
         Teacher teacher = teacherRepo.findById(id).orElseThrow(() -> new RuntimeException("Teacher not found!"));
-        if (teacher.getPosition() != position) {
+        if (!teacher.getPosition().equals(position)) {
             throw new RuntimeException("Teacher with id " + id + " does not have position " + position);
         }
         return teacher;

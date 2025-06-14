@@ -32,5 +32,7 @@ public interface ChildMapper {
     @Mapping(source = "parents", target = "parentDtos")
     List<ChildDto> childToChildDtoList(List<Child> childList);
 
-    void updateChildFromDto(ChildUpdateDto uDTO, @MappingTarget Child child);
+    @Mapping(target = "parents", expression = "java(parentService.findAllById(uDTO.parentIds()))")
+    @Mapping(target = "group", expression = "java(groupService.findById(uDTO.groupId()))")
+    void updateChildFromDto(ChildUpdateDto uDTO, @MappingTarget Child child, ParentService parentService, GroupService groupService);
 }

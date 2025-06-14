@@ -53,7 +53,7 @@ public class ChildServiceImpl implements ChildService {
     @Override
     public ChildDto updateChild(Long id, ChildUpdateDto uDTO) {
         Child child = childRepo.findById(id).orElseThrow( () -> new RuntimeException("Child not found!"));
-        ChildMapper.INSTANCE.updateChildFromDto(uDTO, child);
+        ChildMapper.INSTANCE.updateChildFromDto(uDTO, child, parentService, groupService);
         return ChildMapper.INSTANCE.childToChildDto(child);
     }
 
