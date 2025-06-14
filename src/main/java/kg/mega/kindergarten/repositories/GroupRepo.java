@@ -12,4 +12,8 @@ public interface GroupRepo extends JpaRepository<Group, Long> {
     Group getGroupByIdAndActive(Long id, boolean active);
 
     List<Group> findAllByActiveTrue(Pageable pageable);
+
+    boolean existsByTeacherId(Long teacherId);
+
+    boolean existsByAssistantId(Long assistantId);
 }

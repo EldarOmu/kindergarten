@@ -10,12 +10,23 @@ public class Group {
     private Long id;
     private String name;
     @ManyToOne
-    @JoinColumn(name = "teachers")
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
+    @ManyToOne
+    @JoinColumn(name = "assistant_id")
+    private Teacher assistant;
     @ManyToOne
     @JoinColumn(name = "age_group_id", nullable = false)
     private AgeGroup ageGroup;
     private boolean active = true;
+
+    public Teacher getAssistant() {
+        return assistant;
+    }
+
+    public void setAssistant(Teacher assistant) {
+        this.assistant = assistant;
+    }
 
     public boolean isActive() {
         return active;

@@ -1,6 +1,7 @@
 package kg.mega.kindergarten.services.impl;
 
 import jakarta.transaction.Transactional;
+import kg.mega.kindergarten.enums.Position;
 import kg.mega.kindergarten.mappers.ContactMapper;
 import kg.mega.kindergarten.mappers.TeacherMapper;
 import kg.mega.kindergarten.models.Contact;
@@ -71,6 +72,15 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public Teacher findById(Long id) {
         return teacherRepo.findById(id).orElseThrow(() -> new RuntimeException("Teacher not found!"));
+    }
+
+    @Override
+    public Teacher findTeacherByIdAndPosition(Long id, Position position) {
+        Teacher teacher = teacherRepo.findById(id).orElseThrow(() -> new RuntimeException("Teacher not found!"));
+        if (teacher.getPosition() != position) {
+            throw new RuntimeException("Teacher with id " + id + " does not have position " + position);
+        }
+        return teacher;
     }
 
 }

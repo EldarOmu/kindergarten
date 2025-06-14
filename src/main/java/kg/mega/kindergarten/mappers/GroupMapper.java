@@ -18,18 +18,24 @@ public interface GroupMapper {
     GroupMapper INSTANCE = Mappers.getMapper(GroupMapper.class);
 
     @Mapping(target = "teacher", expression = "java(teacherService.findById(dto.teacherId()))")
+    @Mapping(target = "assistant", expression = "java(teacherService.findById(dto.assistantId()))")
     @Mapping(target = "ageGroup", expression = "java(ageGroupService.findById(dto.ageGroupId()))")
     Group groupCreateDtoToGroup(GroupCreateDto dto, TeacherService teacherService, AgeGroupService ageGroupService);
 
     @Mapping(source = "id", target = "groupId")
     @Mapping(source = "teacher", target = "teacherDto")
+    @Mapping(source = "assistant", target = "assistantDto")
     @Mapping(source = "ageGroup", target = "ageGroupDto")
     GroupDto groupToGroupDto(Group group);
 
     @Mapping(source = "id", target = "groupId")
     @Mapping(source = "teacher", target = "teacherDto")
+    @Mapping(source = "assistant", target = "assistantDto")
     @Mapping(source = "ageGroup", target = "ageGroupDto")
     List<GroupDto> groupToGroupDtoList(List<Group> groups);
 
-    void updateGroupFromDto(GroupUpdateDto uDTO, @MappingTarget Group group);
+    @Mapping(target = "teacher", expression = "java(teacherService.findById(uDTO.teacherId()))")
+    @Mapping(target = "assistant", expression = "java(teacherService.findById(uDTO.assistantId()))")
+    @Mapping(target = "ageGroup", expression = "java(ageGroupService.findById(uDTO.ageGroupId()))")
+    void updateGroupFromDto(GroupUpdateDto uDTO, @MappingTarget Group group, TeacherService teacherService, AgeGroupService ageGroupService);
 }
