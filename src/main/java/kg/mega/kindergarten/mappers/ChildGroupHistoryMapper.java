@@ -9,7 +9,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = {GroupMapper.class, ChildMapper.class    })
+@Mapper(uses = {GroupMapper.class, ChildMapper.class})
 public interface ChildGroupHistoryMapper {
     ChildGroupHistoryMapper INSTANCE = Mappers.getMapper(ChildGroupHistoryMapper.class);
 

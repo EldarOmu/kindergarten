@@ -1,6 +1,8 @@
 package kg.mega.kindergarten.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import kg.mega.kindergarten.enums.Role;
 
 @Entity
@@ -9,7 +11,9 @@ public class Parent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Please enter your first name!")
     private String firstName;
+    @NotBlank(message = "Please enter your first name!")
     private String lastName;
     private Role role;
     @OneToOne

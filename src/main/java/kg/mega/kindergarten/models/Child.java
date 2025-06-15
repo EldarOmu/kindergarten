@@ -1,6 +1,10 @@
 package kg.mega.kindergarten.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 
 import java.util.Date;
 import java.util.List;
@@ -11,11 +15,15 @@ public class Child {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Please enter your first name!")
     private String firstName;
+    @NotBlank(message = "Please enter your last name!")
     private String lastName;
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Group group;
+    @NotBlank(message = "Date of birth cannot be blank!")
+    @Past
     private Date dateOfBirth;
     @ManyToMany
     @JoinTable(name = "child_parents", joinColumns = @JoinColumn(name = "child_id", nullable = false), inverseJoinColumns = @JoinColumn(name = "parent_id", nullable = false))

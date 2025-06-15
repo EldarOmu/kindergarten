@@ -1,6 +1,9 @@
 package kg.mega.kindergarten.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Past;
 import kg.mega.kindergarten.enums.Position;
 import org.hibernate.annotations.DialectOverride;
 
@@ -13,10 +16,14 @@ public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Please enter your first name!")
     private String firstName;
+    @NotBlank(message = "Please enter your last name!")
     private String lastName;
     @Enumerated(EnumType.STRING)
     private Position position;
+    @NotBlank(message = "Date of birth cannot be blank!")
+    @Past
     private Date dateOfBirth;
     @OneToOne
     @JoinColumn(name = "contact_id", nullable = false)
