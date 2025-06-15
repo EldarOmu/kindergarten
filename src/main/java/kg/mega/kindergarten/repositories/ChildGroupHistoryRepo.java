@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ChildGroupHistoryRepo extends JpaRepository<ChildGroupHistory, Long> {
+
+    ChildGroupHistory findChildGroupHistoriesByChildId(Long childId);
 }

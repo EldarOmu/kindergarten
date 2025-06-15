@@ -10,6 +10,8 @@ import kg.mega.kindergarten.services.ChildService;
 import kg.mega.kindergarten.services.GroupService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class ChildGroupHistoryServiceImpl implements ChildGroupHistoryService {
     private final ChildGroupHistoryRepo childGroupHistoryRepo;
@@ -25,6 +27,20 @@ public class ChildGroupHistoryServiceImpl implements ChildGroupHistoryService {
     @Override
     public ChildGroupHistoryDto create(ChildGroupHistoryCreateDto childGroupHistoryCreateDto) {
         ChildGroupHistory childGroupHistory = ChildGroupHistoryMapper.INSTANCE.childGroupHistoryCreateDtoToChild(childGroupHistoryCreateDto, groupService, childService);
+        childGroupHistoryRepo.save(childGroupHistory);
+        return ChildGroupHistoryMapper.INSTANCE.childGroupHistoryToChildGroupHistoryDto(childGroupHistory);
+    }
+
+    @Override
+    public ChildGroupHistoryDto getChildGroupHistory(Long childId) {
+        ChildGroupHistory childGroupHistory = childGroupHistoryRepo.findById(childId).orElseThrow(() -> new RuntimeException("Child group history not found"));
+        return ChildGroupHistoryMapper.INSTANCE.childGroupHistoryToChildGroupHistoryDto(childGroupHistory);
+    }
+
+    @Override
+    public ChildGroupHistoryDto endCurrentChildGroupHistory(Long childId) {
+        ChildGroupHistory childGroupHistory = childGroupHistoryRepo.findChildGroupHistoriesByChildId(childId);
+        childGroupHistory.setEndDate(LocalDateTime.now());
         childGroupHistoryRepo.save(childGroupHistory);
         return ChildGroupHistoryMapper.INSTANCE.childGroupHistoryToChildGroupHistoryDto(childGroupHistory);
     }
