@@ -79,7 +79,7 @@ public class TeacherServiceImpl implements TeacherService {
     public Teacher findTeacherByIdAndPosition(Long id, Position position) {
         Teacher teacher = teacherRepo.findById(id).orElseThrow(() -> new RuntimeException("Teacher not found!"));
         if (!teacher.getPosition().equals(position)) {
-            throw new RuntimeException("Teacher with id " + id + " does not have position " + position);
+            throw new RuntimeException("Teacher or assistant with id " + id + " does not have position " + position);
         }
         return teacher;
     }
