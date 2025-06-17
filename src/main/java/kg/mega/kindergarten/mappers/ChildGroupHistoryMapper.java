@@ -9,6 +9,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(uses = {GroupMapper.class, ChildMapper.class})
 public interface ChildGroupHistoryMapper {
     ChildGroupHistoryMapper INSTANCE = Mappers.getMapper(ChildGroupHistoryMapper.class);
@@ -21,4 +23,9 @@ public interface ChildGroupHistoryMapper {
     @Mapping(source = "group", target = "groupDto")
     @Mapping(source = "child", target = "childDto")
     ChildGroupHistoryDto childGroupHistoryToChildGroupHistoryDto(ChildGroupHistory childGroupHistory);
+
+    @Mapping(source = "id", target = "childGroupHistoryId")
+    @Mapping(source = "group", target = "groupDto")
+    @Mapping(source = "child", target = "childDto")
+    List<ChildGroupHistoryDto> childGroupHistoryToChildGroupHistoryDtoList(List<ChildGroupHistory> childGroupHistory);
 }

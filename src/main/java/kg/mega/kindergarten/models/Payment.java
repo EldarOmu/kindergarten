@@ -1,6 +1,7 @@
 package kg.mega.kindergarten.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 import kg.mega.kindergarten.enums.PaymentType;
 
 import java.time.LocalDate;
@@ -16,11 +17,10 @@ public class Payment {
     @ManyToOne
     @JoinColumn(name = "child_id")
     private Child child;
+    @Positive
     private double paymentSum;
     private LocalDateTime paymentDate;
-    private LocalDate endPaymentDate;
     private PaymentType paymentType;
-    private int period;
     private boolean active = true;
 
     public boolean isActive() {
@@ -31,21 +31,6 @@ public class Payment {
         this.active = active;
     }
 
-    public LocalDate getEndPaymentDate() {
-        return endPaymentDate;
-    }
-
-    public void setEndPaymentDate(LocalDate endPaymentDate) {
-        this.endPaymentDate = endPaymentDate;
-    }
-
-    public int getPeriod() {
-        return period;
-    }
-
-    public void setPeriod(int period) {
-        this.period = period;
-    }
 
     public Long getId() {
         return id;

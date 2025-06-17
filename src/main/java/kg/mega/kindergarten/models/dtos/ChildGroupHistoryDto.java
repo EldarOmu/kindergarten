@@ -12,6 +12,6 @@ public record ChildGroupHistoryDto(
         @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
         LocalDateTime endDate,
         ChildDto childDto,
-        double price
+        double debt
 ) {
 }

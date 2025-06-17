@@ -18,7 +18,7 @@ public class ChildGroupHistory {
     @ManyToOne
     @JoinColumn(name = "child_id")
     private Child child;
-    private double price;
+    private double debt;
 
     public Long getId() {
         return id;
@@ -60,11 +60,11 @@ public class ChildGroupHistory {
         this.child = child;
     }
 
-    public double getPrice() {
-        return price;
+    public double getDebt() {
+        return debt;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setDebt(double debt) {
+        this.debt = debt;
     }
 }

@@ -38,4 +38,15 @@ public class ChildGroupHistoryController {
         ChildGroupHistoryDto childGroupHistoryDto = childGroupHistoryService.endCurrentChildGroupHistory(childId);
         return ResponseEntity.ok(childGroupHistoryDto);
     }
+
+    @GetMapping("/get-list-of-debstors")
+    public ResponseEntity<?> getListOfDebtorsByChildId(@RequestParam int page,  @RequestParam int size) {
+        return ResponseEntity.ok(childGroupHistoryService.getListOfDebtorsByChildId(page, size));
+    }
+
+    @GetMapping("/get-debtor-by-childId/{childId}")
+    public ResponseEntity<?> getDebtorByChildId(@PathVariable Long childId) {
+        return ResponseEntity.ok(childGroupHistoryService.getDebtorByChildId(childId));
+    }
+
 }

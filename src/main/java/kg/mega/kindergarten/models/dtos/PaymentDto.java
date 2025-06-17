@@ -11,10 +11,7 @@ public record PaymentDto(
         ChildDto childDto,
         @JsonFormat(pattern = "dd.MM.yyyy HH:mm")
         LocalDateTime paymentDate,
-        @JsonFormat(pattern = "dd.MM.yyyy")
-        LocalDate endPaymentDate,
         PaymentType paymentType,
-        int period,
         boolean active
         ) {
 }

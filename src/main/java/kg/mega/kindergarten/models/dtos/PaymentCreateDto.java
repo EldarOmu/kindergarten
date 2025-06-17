@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 public record PaymentCreateDto(
         Long childId,
         double paymentSum,
-        PaymentType paymentType,
-        int period
+        PaymentType paymentType
 ) {
 }

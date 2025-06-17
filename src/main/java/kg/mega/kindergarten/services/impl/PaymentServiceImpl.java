@@ -1,10 +1,12 @@
 package kg.mega.kindergarten.services.impl;
 
 import kg.mega.kindergarten.mappers.PaymentMapper;
+import kg.mega.kindergarten.models.ChildGroupHistory;
 import kg.mega.kindergarten.models.Payment;
 import kg.mega.kindergarten.models.dtos.PaymentCreateDto;
 import kg.mega.kindergarten.models.dtos.PaymentDto;
 import kg.mega.kindergarten.repositories.PaymentRepo;
+import kg.mega.kindergarten.services.ChildGroupHistoryService;
 import kg.mega.kindergarten.services.ChildService;
 import kg.mega.kindergarten.services.PaymentService;
 import org.springframework.stereotype.Service;
@@ -18,21 +20,22 @@ import java.util.List;
 public class PaymentServiceImpl implements PaymentService {
     private final PaymentRepo paymentRepo;
     private final ChildService childService;
+    private final ChildGroupHistoryService childGroupHistoryService;
 
-    public PaymentServiceImpl(PaymentRepo paymentRepo, ChildService childService) {
+    public PaymentServiceImpl(PaymentRepo paymentRepo, ChildService childService, ChildGroupHistoryService childGroupHistoryService) {
         this.paymentRepo = paymentRepo;
         this.childService = childService;
+        this.childGroupHistoryService = childGroupHistoryService;
     }
 
     @Override
     public PaymentDto createPayment(PaymentCreateDto paymentCreateDto) {
         Payment payment = PaymentMapper.INSTANCE.paymentCreateDtoToPayment(paymentCreateDto, childService);
+        if (!payment.getChild().getGroup().isActive()) {
+            throw new RuntimeException("Payments failed.");
+        }
         payment.setPaymentDate(LocalDateTime.now());
-        payment.setEndPaymentDate(LocalDate.now().plusMonths(paymentCreateDto.period()));
-        if (payment.getPaymentSum() - payment.getChild().getGroup().getAgeGroup().getPrice() * payment.getPeriod() >= 0)
-            paymentRepo.save(payment);
-        else
-            throw new RuntimeException("Insufficient funds to pay!");
+        childGroupHistoryService.childDebtDeductionPayment(payment.getPaymentSum(), payment.getChild().getId());
         return PaymentMapper.INSTANCE.paymentToPaymentDto(payment);
     }
 
