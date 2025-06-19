@@ -19,4 +19,6 @@ public interface ChildService {
     boolean deleteChild(Long id);
 
     Child findById(Long id);
+
+    ChildDto changeChildGroup(Long id, Long groupId);
 }

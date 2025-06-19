@@ -2,6 +2,7 @@ package kg.mega.kindergarten.services.impl;
 
 import kg.mega.kindergarten.mappers.ChildMapper;
 import kg.mega.kindergarten.models.Child;
+import kg.mega.kindergarten.models.Group;
 import kg.mega.kindergarten.models.Parent;
 import kg.mega.kindergarten.models.dtos.ChildCreateDto;
 import kg.mega.kindergarten.models.dtos.ChildDto;
@@ -68,5 +69,14 @@ public class ChildServiceImpl implements ChildService {
     @Override
     public Child findById(Long id) {
         return childRepo.getChildByIdAndActive(id, true);
+    }
+
+    @Override
+    public ChildDto changeChildGroup(Long id, Long groupId) {
+        Child child = childRepo.getChildByIdAndActive(id, true);
+        Group group = groupService.findById(groupId);
+        child.setGroup(group);
+        childRepo.save(child);
+        return ChildMapper.INSTANCE.childToChildDto(child);
     }
 }

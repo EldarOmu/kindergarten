@@ -5,9 +5,9 @@ import kg.mega.kindergarten.models.dtos.ChildCreateDto;
 import kg.mega.kindergarten.models.dtos.ChildDto;
 import kg.mega.kindergarten.models.dtos.ChildUpdateDto;
 import kg.mega.kindergarten.services.ChildService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,4 +53,9 @@ public class ChildController implements CRUDOperations<ChildDto, ChildCreateDto,
     public boolean delete(Long id) {
         return childService.deleteChild(id);
     }
-}
+
+    @PutMapping("/change-child-group/{id}")
+    public ResponseEntity<?> changeChildGroup(@PathVariable Long id, @RequestParam Long groupId){
+        return ResponseEntity.ok(childService.changeChildGroup(id, groupId));
+    }
+ }
