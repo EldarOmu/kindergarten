@@ -6,6 +6,7 @@ import kg.mega.kindergarten.mappers.ContactMapper;
 import kg.mega.kindergarten.mappers.TeacherMapper;
 import kg.mega.kindergarten.models.Contact;
 import kg.mega.kindergarten.models.Teacher;
+import kg.mega.kindergarten.models.dtos.TeacherChangeDetailDto;
 import kg.mega.kindergarten.models.dtos.TeacherCreateDto;
 import kg.mega.kindergarten.models.dtos.TeacherDto;
 import kg.mega.kindergarten.models.dtos.TeacherUpdateDto;
@@ -82,6 +83,13 @@ public class TeacherServiceImpl implements TeacherService {
             throw new RuntimeException("Teacher or assistant with id " + id + " does not have position " + position);
         }
         return teacher;
+    }
+
+    @Override
+    public TeacherDto changeTeacherDetails(Long id, TeacherChangeDetailDto teacherChangeDetailDto) {
+        Teacher teacher = teacherRepo.getTeacherByIdAndActive(id, true);
+        TeacherMapper.INSTANCE.changeTeacherFromTeacherDetailDto(teacher,  teacherChangeDetailDto);
+        return TeacherMapper.INSTANCE.teacherToTeacherDto(teacher);
     }
 
 }

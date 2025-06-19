@@ -2,12 +2,13 @@ package kg.mega.kindergarten.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
 import kg.mega.kindergarten.models.dtos.ParentCreateDto;
+import kg.mega.kindergarten.models.dtos.ParentDetailDto;
 import kg.mega.kindergarten.models.dtos.ParentDto;
 import kg.mega.kindergarten.models.dtos.ParentUpdateDto;
 import kg.mega.kindergarten.services.ParentService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,5 +54,12 @@ public class ParentController implements CRUDOperations<ParentDto, ParentCreateD
     @PreAuthorize("hasRole('ADMIN')")
     public boolean delete(Long id) {
         return parentService.delete(id);
+    }
+
+    @PutMapping("/change-parent-details/{parentId}")
+    @Operation(summary = "Изменение пользовательских данных самим пользователем", description = "Изменение пользовательских данных спомощью id родителя и тела ParentChangeDetail")
+    @PreAuthorize("hasAnyRole('ADMIN', 'PARENT')")
+    public ResponseEntity<?> changeParentDetails(@PathVariable Long  parentId, @RequestBody ParentDetailDto parentDetailDto) {
+        return ResponseEntity.ok(parentService.changeParentDetail(parentId, parentDetailDto));
     }
 }

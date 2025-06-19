@@ -1,13 +1,14 @@
 package kg.mega.kindergarten.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
+import kg.mega.kindergarten.models.dtos.TeacherChangeDetailDto;
 import kg.mega.kindergarten.models.dtos.TeacherCreateDto;
 import kg.mega.kindergarten.models.dtos.TeacherDto;
 import kg.mega.kindergarten.models.dtos.TeacherUpdateDto;
 import kg.mega.kindergarten.services.TeacherService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,5 +54,12 @@ public class TeacherController  implements CRUDOperations<TeacherDto, TeacherCre
     @PreAuthorize("hasRole('ADMIN')")
     public boolean delete(Long id) {
         return teacherService.delete(id);
+    }
+
+    @PutMapping("/change-teacher-details/{id}")
+    @Operation(summary = "Изменение пользовательских данных самим пользователем", description = "Изменение пользовательских данных спомощью id учителя и тела TeacherChangeDetail")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
+    public ResponseEntity<?> changeTeacherDetails(@PathVariable Long id, @RequestBody TeacherChangeDetailDto teacherChangeDetailDto){
+        return ResponseEntity.ok(teacherService.changeTeacherDetails(id, teacherChangeDetailDto));
     }
 }

@@ -63,6 +63,8 @@ public class ChildController implements CRUDOperations<ChildDto, ChildCreateDto,
     }
 
     @PutMapping("/change-child-details/{id}")
+    @Operation(summary = "Изменение пользовательских данных самим пользователем", description = "Изменение пользовательских данных спомощью id ребенка и тела ChildChangeDetail")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
     public ResponseEntity<?> changeChildDetails(@PathVariable Long id, @RequestBody ChildChangeDetail childChangeDetail){
         return ResponseEntity.ok(childService.changeChildDetails(id, childChangeDetail));
     }

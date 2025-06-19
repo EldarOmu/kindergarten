@@ -2,6 +2,7 @@ package kg.mega.kindergarten.services;
 
 import kg.mega.kindergarten.enums.Position;
 import kg.mega.kindergarten.models.Teacher;
+import kg.mega.kindergarten.models.dtos.TeacherChangeDetailDto;
 import kg.mega.kindergarten.models.dtos.TeacherCreateDto;
 import kg.mega.kindergarten.models.dtos.TeacherDto;
 import kg.mega.kindergarten.models.dtos.TeacherUpdateDto;
@@ -22,4 +23,6 @@ public interface TeacherService {
     Teacher findById(Long id);
 
     Teacher findTeacherByIdAndPosition(Long id, Position position);
+
+    TeacherDto changeTeacherDetails(Long id, TeacherChangeDetailDto teacherChangeDetailDto);
 }

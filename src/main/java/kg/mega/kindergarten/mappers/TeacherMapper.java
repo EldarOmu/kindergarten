@@ -1,6 +1,7 @@
 package kg.mega.kindergarten.mappers;
 
 import kg.mega.kindergarten.models.Teacher;
+import kg.mega.kindergarten.models.dtos.TeacherChangeDetailDto;
 import kg.mega.kindergarten.models.dtos.TeacherCreateDto;
 import kg.mega.kindergarten.models.dtos.TeacherDto;
 import kg.mega.kindergarten.models.dtos.TeacherUpdateDto;
@@ -26,4 +27,6 @@ public interface TeacherMapper {
     List<TeacherDto> teachersToTeachersDto(List<Teacher> teachers);
 
     void updateTeacherFromDto(TeacherUpdateDto dto, @MappingTarget Teacher teacher);
+
+    void changeTeacherFromTeacherDetailDto(Teacher teacher, @MappingTarget TeacherChangeDetailDto  teacherChangeDetailDto);
 }

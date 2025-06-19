@@ -6,6 +6,7 @@ import kg.mega.kindergarten.mappers.ParentMapper;
 import kg.mega.kindergarten.models.Contact;
 import kg.mega.kindergarten.models.Parent;
 import kg.mega.kindergarten.models.dtos.ParentCreateDto;
+import kg.mega.kindergarten.models.dtos.ParentDetailDto;
 import kg.mega.kindergarten.models.dtos.ParentDto;
 import kg.mega.kindergarten.models.dtos.ParentUpdateDto;
 import kg.mega.kindergarten.repositories.ParentRepo;
@@ -71,5 +72,12 @@ public class ParentServiceImpl implements ParentService {
     @Override
     public List<Parent> findAllById(List<Long> parentIds) {
         return parentRepo.findAllById(parentIds);
+    }
+
+    @Override
+    public ParentDto changeParentDetail(Long parentId, ParentDetailDto parentDetailDto) {
+        Parent parent = parentRepo.findById(parentId).orElseThrow( () -> new RuntimeException("Parent not found"));
+        ParentMapper.INSTANCE.changeParentFromParentChangeDetailDto(parent, parentDetailDto);
+        return ParentMapper.INSTANCE.parentToParentDto(parent);
     }
 }

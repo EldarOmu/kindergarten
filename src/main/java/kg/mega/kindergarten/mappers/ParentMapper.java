@@ -2,6 +2,7 @@ package kg.mega.kindergarten.mappers;
 
 import kg.mega.kindergarten.models.Parent;
 import kg.mega.kindergarten.models.dtos.ParentCreateDto;
+import kg.mega.kindergarten.models.dtos.ParentDetailDto;
 import kg.mega.kindergarten.models.dtos.ParentDto;
 import kg.mega.kindergarten.models.dtos.ParentUpdateDto;
 import org.mapstruct.InheritInverseConfiguration;
@@ -27,4 +28,6 @@ public interface ParentMapper {
     List<ParentDto> parentsToParentDtos(List<Parent> parents);
 
     void updateParentFromDto(ParentUpdateDto dto, @MappingTarget Parent parent);
+
+    void changeParentFromParentChangeDetailDto(Parent parent, @MappingTarget ParentDetailDto parentDetailDto);
 }
