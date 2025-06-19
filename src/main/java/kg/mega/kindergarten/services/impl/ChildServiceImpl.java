@@ -4,6 +4,7 @@ import kg.mega.kindergarten.mappers.ChildMapper;
 import kg.mega.kindergarten.models.Child;
 import kg.mega.kindergarten.models.Group;
 import kg.mega.kindergarten.models.Parent;
+import kg.mega.kindergarten.models.dtos.ChildChangeDetail;
 import kg.mega.kindergarten.models.dtos.ChildCreateDto;
 import kg.mega.kindergarten.models.dtos.ChildDto;
 import kg.mega.kindergarten.models.dtos.ChildUpdateDto;
@@ -77,6 +78,13 @@ public class ChildServiceImpl implements ChildService {
         Group group = groupService.findById(groupId);
         child.setGroup(group);
         childRepo.save(child);
+        return ChildMapper.INSTANCE.childToChildDto(child);
+    }
+
+    @Override
+    public ChildDto changeChildDetails(Long id, ChildChangeDetail childChangeDetail) {
+        Child child = childRepo.getChildByIdAndActive(id, true);
+        ChildMapper.INSTANCE.changeChildFromChildChangeDetail(childChangeDetail, child);
         return ChildMapper.INSTANCE.childToChildDto(child);
     }
 }

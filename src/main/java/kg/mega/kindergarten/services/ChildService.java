@@ -1,6 +1,7 @@
 package kg.mega.kindergarten.services;
 
 import kg.mega.kindergarten.models.Child;
+import kg.mega.kindergarten.models.dtos.ChildChangeDetail;
 import kg.mega.kindergarten.models.dtos.ChildCreateDto;
 import kg.mega.kindergarten.models.dtos.ChildDto;
 import kg.mega.kindergarten.models.dtos.ChildUpdateDto;
@@ -21,4 +22,6 @@ public interface ChildService {
     Child findById(Long id);
 
     ChildDto changeChildGroup(Long id, Long groupId);
+
+    ChildDto changeChildDetails(Long id, ChildChangeDetail childChangeDetail);
 }

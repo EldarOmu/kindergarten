@@ -1,6 +1,7 @@
 package kg.mega.kindergarten.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
+import kg.mega.kindergarten.models.dtos.ChildChangeDetail;
 import kg.mega.kindergarten.models.dtos.ChildCreateDto;
 import kg.mega.kindergarten.models.dtos.ChildDto;
 import kg.mega.kindergarten.models.dtos.ChildUpdateDto;
@@ -55,7 +56,15 @@ public class ChildController implements CRUDOperations<ChildDto, ChildCreateDto,
     }
 
     @PutMapping("/change-child-group/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Поменять группу ребенка", description = "Меняем группу ребенка через id ребенка и id группы")
     public ResponseEntity<?> changeChildGroup(@PathVariable Long id, @RequestParam Long groupId){
         return ResponseEntity.ok(childService.changeChildGroup(id, groupId));
     }
+
+    @PutMapping("/change-child-details/{id}")
+    public ResponseEntity<?> changeChildDetails(@PathVariable Long id, @RequestBody ChildChangeDetail childChangeDetail){
+        return ResponseEntity.ok(childService.changeChildDetails(id, childChangeDetail));
+    }
+
  }

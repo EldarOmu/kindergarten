@@ -1,6 +1,7 @@
 package kg.mega.kindergarten.mappers;
 
 import kg.mega.kindergarten.models.Child;
+import kg.mega.kindergarten.models.dtos.ChildChangeDetail;
 import kg.mega.kindergarten.models.dtos.ChildCreateDto;
 import kg.mega.kindergarten.models.dtos.ChildDto;
 import kg.mega.kindergarten.models.dtos.ChildUpdateDto;
@@ -35,4 +36,6 @@ public interface ChildMapper {
     @Mapping(target = "parents", expression = "java(parentService.findAllById(uDTO.parentIds()))")
     @Mapping(target = "group", expression = "java(groupService.findById(uDTO.groupId()))")
     void updateChildFromDto(ChildUpdateDto uDTO, @MappingTarget Child child, ParentService parentService, GroupService groupService);
+
+    void changeChildFromChildChangeDetail(ChildChangeDetail childChangeDetail, @MappingTarget Child child);
 }
