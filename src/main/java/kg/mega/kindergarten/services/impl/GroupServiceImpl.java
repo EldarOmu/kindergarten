@@ -67,10 +67,10 @@ public class GroupServiceImpl implements GroupService {
         Group group = groupRepo.findById(id).orElseThrow(() -> new RuntimeException("Group not found!"));
         Teacher teacher = teacherService.findTeacherByIdAndPosition(uDTO.teacherId(), Position.TEACHER);
         Teacher assistant = teacherService.findTeacherByIdAndPosition(uDTO.assistantId(), Position.ASSISTANT);
-        if (!group.getTeacher().getId().equals(uDTO.teacherId()) && groupRepo.existsByTeacherId(uDTO.teacherId())) {
+        if (!group.getTeacher().getId().equals(uDTO.teacherId())) {
             throw new RuntimeException("Teacher already exists in group");
         }
-        if (!group.getAssistant().getId().equals(uDTO.assistantId()) && groupRepo.existsByAssistantId(uDTO.assistantId())) {
+        if (!group.getAssistant().getId().equals(uDTO.assistantId())) {
             throw new RuntimeException("Assistant already exists in group");
         }
         GroupMapper.INSTANCE.updateGroupFromDto(uDTO, group, teacherService, ageGroupService);
