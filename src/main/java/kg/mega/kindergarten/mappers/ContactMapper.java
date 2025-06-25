@@ -18,8 +18,5 @@ public interface ContactMapper {
     @Mapping(source = "id", target = "contactId")
     ContactDto contactToContactDto(Contact contact);
 
-    @InheritInverseConfiguration
-    Contact contactDtoToContact(ContactDto contactDto);
-
     void updateContactFromDto(ContactDto contactDto, @MappingTarget Contact contact);
 }

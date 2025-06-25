@@ -31,7 +31,6 @@ public class Payment {
         this.active = active;
     }
 
-
     public Long getId() {
         return id;
     }
