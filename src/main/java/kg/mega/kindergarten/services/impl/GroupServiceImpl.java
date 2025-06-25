@@ -65,10 +65,6 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public GroupDto updateGroup(Long id, GroupUpdateDto uDTO) {
         Group group = groupRepo.findById(id).orElseThrow(() -> new RuntimeException("Group not found!"));
-        System.out.println("До маппера:");
-        System.out.println("group.teacher.id = " + group.getTeacher().getId());
-        System.out.println("group.assistant.id = " + group.getAssistant().getId());
-        System.out.println("uDTO.assistantId = " + uDTO.assistantId());
         Teacher teacher = teacherService.findTeacherByIdAndPosition(uDTO.teacherId(), Position.TEACHER);
         Teacher assistant = teacherService.findTeacherByIdAndPosition(uDTO.assistantId(), Position.ASSISTANT);
         if (!group.getTeacher().getId().equals(uDTO.teacherId()) && groupRepo.existsByTeacherId(uDTO.teacherId())) {
