@@ -43,7 +43,7 @@ public class AgeGroupServiceImpl implements AgeGroupService {
 
     @Override
     public AgeGroupDto updateAgeGroup(Long id, AgeGroupUpdateDto uDTO) {
-        AgeGroup ageGroup = ageGroupRepo.findById(id).orElseThrow( () -> new RuntimeException("Age group not found!"));
+        AgeGroup ageGroup = findById(id);
         AgeGroupMapper.INSTANCE.updateGroupAgeFromDto(uDTO, ageGroup);
         ageGroupRepo.save(ageGroup);
         return AgeGroupMapper.INSTANCE.ageGroupToAgeGroupDto(ageGroup);
@@ -51,7 +51,7 @@ public class AgeGroupServiceImpl implements AgeGroupService {
 
     @Override
     public boolean deleteAgeGroup(Long id) {
-        AgeGroup ageGroup = ageGroupRepo.findById(id).orElseThrow( () -> new RuntimeException("Age group not found!"));
+        AgeGroup ageGroup = findById(id);
         ageGroup.setActive(false);
         ageGroupRepo.save(ageGroup);
         return true;
