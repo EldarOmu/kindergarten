@@ -9,7 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/ape/child-group-history")
+@RequestMapping("/api/child-group-history")
 public class ChildGroupHistoryController {
     private final ChildGroupHistoryService childGroupHistoryService;
 
@@ -40,10 +40,12 @@ public class ChildGroupHistoryController {
     }
 
     @GetMapping("/get-list-of-debstors")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getListOfDebtorsByChildId(@RequestParam int page,  @RequestParam int size) {
         return ResponseEntity.ok(childGroupHistoryService.getListOfDebtorsByChildId(page, size));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PARENT', 'TEACHER')")
     @GetMapping("/get-debtor-by-childId/{childId}")
     public ResponseEntity<?> getDebtorByChildId(@PathVariable Long childId) {
         return ResponseEntity.ok(childGroupHistoryService.getDebtorByChildId(childId));
